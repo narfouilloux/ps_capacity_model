@@ -6,635 +6,551 @@
 <title>PS Capacity Dashboard · 2026 · Thynk.Cloud</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#0d1117;--s1:#161b22;--s2:#1c2128;--bd:#30363d;--bd2:#21262d;
-  --t1:#e6edf3;--t2:#8b949e;--t3:#484f58;
-  --teal:#1D9E75;--teal-l:#E1F5EE;--teal-d:#0F6E56;
-  --blue:#378ADD;--blue-l:#E6F1FB;--blue-d:#185FA5;
-  --purple:#7F77DD;--purple-l:#EEEDFE;--purple-d:#534AB7;
-  --amber:#BA7517;--amber-l:#FAEEDA;--amber-d:#854F0B;
-  --green:#639922;--red:#E24B4A;--red-l:#FCEBEB;
-  --r-md:8px;--r-lg:12px;--r-xl:16px;
+  --purple:    #5C4ACE;
+  --purple-d:  #4535A8;
+  --purple-l:  #EEE9FF;
+  --purple-ll: #F7F5FF;
+  --nav-bg:    #0F0E1A;
+  --nav-t:     #C9C8D8;
+  --page-bg:   #F4F5F7;
+  --white:     #FFFFFF;
+  --bd:        #DFE1E6;
+  --bd-l:      #EBECF0;
+  --th:        #172B4D;
+  --tb:        #344563;
+  --tm:        #5E6C84;
+  --ts:        #97A0AF;
+  --green:     #0A8A4E; --green-l:#E3F9EE;
+  --blue:      #0065CC; --blue-l:#DEEBFF;
+  --amber:     #B35C00; --amber-l:#FFF0DF;
+  --red:       #C9372C; --red-l:#FFEBE6;
+  --teal:      #008DA6; --teal-l:#E6F7FA;
+  --r:6px; --rl:10px;
+  --sh-s:0 1px 2px rgba(23,43,77,.1),0 0 1px rgba(23,43,77,.07);
+  --sh-m:0 3px 8px rgba(23,43,77,.1),0 0 1px rgba(23,43,77,.07);
 }
-html{scroll-behavior:smooth}
-body{font-family:'Syne',system-ui,sans-serif;background:var(--bg);color:var(--t1);min-height:100vh;overflow-x:hidden}
-.mono{font-family:'DM Mono','Courier New',monospace}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--page-bg);color:var(--tb);min-height:100vh;font-size:14px;line-height:1.5}
 
-/* ─── LOCK ─────────────────────────────────────── */
-#lock{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:999;flex-direction:column}
-.lock-card{background:var(--s1);border:1px solid var(--bd);border-radius:var(--r-xl);padding:52px 56px;width:400px;display:flex;flex-direction:column;gap:22px;position:relative;overflow:hidden}
-.lock-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--teal),var(--blue))}
-.lock-icon{font-size:36px;text-align:center}
-.lock-title{text-align:center;font-size:24px;font-weight:800}
-.lock-sub{text-align:center;font-size:11px;color:var(--t2);font-family:'DM Mono',monospace;letter-spacing:.06em;margin-top:-14px}
-.lock-input{width:100%;background:var(--bg);border:1px solid var(--bd);border-radius:var(--r-md);padding:13px 16px;color:var(--t1);font-family:'DM Mono',monospace;font-size:14px;letter-spacing:.08em;outline:none;transition:border-color .2s}
-.lock-input:focus{border-color:var(--teal)}
-.lock-btn{width:100%;background:var(--teal);color:#fff;border:none;border-radius:var(--r-md);padding:14px;font-family:'Syne',sans-serif;font-weight:800;font-size:13px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:opacity .15s}
-.lock-btn:hover{opacity:.85}
-.lock-err{text-align:center;font-size:12px;color:var(--red);font-family:'DM Mono',monospace;min-height:16px}
+/* LOCK */
+#lock{position:fixed;inset:0;background:var(--page-bg);display:flex;align-items:center;justify-content:center;z-index:999}
+.lk-card{background:var(--white);border:1px solid var(--bd);border-radius:var(--rl);padding:44px 40px;width:376px;box-shadow:var(--sh-m);display:flex;flex-direction:column;gap:18px;position:relative;overflow:hidden}
+.lk-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--purple)}
+.lk-brand{display:flex;align-items:center;gap:9px}
+.lk-mark{width:34px;height:34px;background:var(--purple);border-radius:7px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:15px}
+.lk-name{font-size:15px;font-weight:700;color:var(--th)}
+.lk-name span{color:var(--purple)}
+.lk-title{font-size:21px;font-weight:700;color:var(--th)}
+.lk-sub{font-size:12px;color:var(--tm);margin-top:-10px}
+.f-lbl{font-size:12px;font-weight:600;color:var(--tb);display:block;margin-bottom:4px}
+.f-input{width:100%;border:1.5px solid var(--bd);border-radius:var(--r);padding:9px 12px;font-family:'Inter',sans-serif;font-size:14px;color:var(--th);outline:none;transition:border-color .15s,box-shadow .15s}
+.f-input:focus{border-color:var(--purple);box-shadow:0 0 0 3px rgba(92,74,206,.14)}
+.btn-p{width:100%;background:var(--purple);color:#fff;border:none;border-radius:var(--r);padding:10px;font-family:'Inter',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:background .15s}
+.btn-p:hover{background:var(--purple-d)}
+.lk-err{font-size:12px;color:var(--red);min-height:16px;text-align:center}
 
-/* ─── APP ──────────────────────────────────────── */
+/* APP */
 #app{display:none}
 
-/* ─── NAV ──────────────────────────────────────── */
-nav{position:sticky;top:0;z-index:100;background:var(--s1);border-bottom:1px solid var(--bd);padding:0 32px;height:52px;display:flex;align-items:center;gap:0}
-.nav-logo{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);margin-right:32px}
-.nav-logo span{color:var(--t3)}
-.nav-badge{font-family:'DM Mono',monospace;font-size:10px;background:rgba(29,158,117,.12);border:1px solid rgba(29,158,117,.3);color:var(--teal);border-radius:4px;padding:2px 8px;letter-spacing:.04em}
-.nav-spacer{flex:1}
-.nav-user{font-family:'DM Mono',monospace;font-size:11px;color:var(--t2);display:flex;align-items:center;gap:10px}
-.nav-avatar{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--teal));display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#fff}
-.lock-sm{background:transparent;border:1px solid var(--bd);border-radius:6px;padding:4px 10px;color:var(--t2);font-family:'DM Mono',monospace;font-size:10px;cursor:pointer;transition:all .15s}
-.lock-sm:hover{border-color:var(--red);color:var(--red)}
+/* NAV */
+nav{background:var(--nav-bg);height:52px;display:flex;align-items:center;padding:0 24px;position:sticky;top:0;z-index:100;gap:0}
+.n-brand{display:flex;align-items:center;gap:8px;margin-right:20px}
+.n-mark{width:28px;height:28px;background:var(--purple);border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:#fff;flex-shrink:0}
+.n-name{font-size:13px;font-weight:600;color:#fff}
+.n-name span{color:var(--nav-t);font-weight:400}
+.n-div{width:1px;height:18px;background:#2D2B42;margin:0 14px}
+.n-path{font-size:13px;color:var(--nav-t)}
+.n-sp{flex:1}
+.n-user{display:flex;align-items:center;gap:9px}
+.n-av{width:27px;height:27px;border-radius:50%;background:linear-gradient(135deg,var(--purple),#8B5CF6);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff}
+.n-nm{font-size:12px;color:var(--nav-t)}
+.n-lock{background:transparent;border:1px solid #3D3B56;border-radius:var(--r);padding:4px 10px;color:var(--nav-t);font-family:'Inter',sans-serif;font-size:12px;cursor:pointer;transition:all .15s}
+.n-lock:hover{border-color:#6B69A0;color:#fff}
 
-/* ─── PAGE ─────────────────────────────────────── */
-.page{padding:28px 32px 0}
-.page-hdr{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:22px}
-.page-title{font-size:26px;font-weight:800;line-height:1.1}
-.page-title span{color:var(--teal)}
-.page-sub{font-family:'DM Mono',monospace;font-size:11px;color:var(--t2);margin-top:5px;letter-spacing:.03em}
-.page-ts{text-align:right;font-family:'DM Mono',monospace;font-size:10px;color:var(--t2);line-height:1.7}
+/* BREADCRUMB */
+.bc{padding:12px 24px 0;display:flex;align-items:center;gap:6px;font-size:13px;color:var(--tm)}
+.bc a{color:var(--blue);text-decoration:none;font-weight:500}
+.bc a:hover{text-decoration:underline}
+.bc-s{color:var(--ts);font-size:11px}
 
-/* ─── KPI STRIP ────────────────────────────────── */
-.kpi-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:18px}
-.kpi{background:var(--s1);border:1px solid var(--bd);border-radius:var(--r-lg);padding:18px;position:relative;overflow:hidden}
-.kpi::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--c,var(--teal));opacity:.7}
-.kpi-lbl{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--t2);margin-bottom:9px}
-.kpi-val{font-size:22px;font-weight:800;color:var(--c,var(--teal))}
-.kpi-sub{font-family:'DM Mono',monospace;font-size:9px;color:var(--t2);margin-top:4px;line-height:1.5}
+/* PAGE HDR */
+.ph{padding:10px 24px 14px;display:flex;align-items:flex-end;justify-content:space-between;gap:12px}
+.ph h1{font-size:20px;font-weight:700;color:var(--th)}
+.ph p{font-size:12px;color:var(--tm);margin-top:3px}
+.ts-bdg{font-size:12px;color:var(--tm);background:var(--white);border:1px solid var(--bd);border-radius:var(--r);padding:6px 11px;white-space:nowrap;box-shadow:var(--sh-s)}
 
-/* ─── SCENARIOS ────────────────────────────────── */
-.sc-bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:18px}
-.sc-lbl{font-family:'DM Mono',monospace;font-size:11px;color:var(--t2);letter-spacing:.04em;white-space:nowrap}
-.sc-btn{padding:5px 13px;border-radius:6px;border:1px solid var(--bd);background:transparent;color:var(--t2);font-family:'DM Mono',monospace;font-size:11px;cursor:pointer;transition:all .15s;white-space:nowrap}
-.sc-btn:hover{background:var(--s2)}
-.sc-btn.active{border-color:var(--c,var(--teal));color:var(--c,var(--teal));background:color-mix(in srgb,var(--c,var(--teal)) 10%,transparent)}
+/* SCENARIO BAR */
+.sc-bar{padding:0 24px 14px;display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.sc-lbl{font-size:12px;font-weight:500;color:var(--tm)}
+.sc-btn{padding:5px 13px;border-radius:20px;border:1.5px solid var(--bd);background:var(--white);color:var(--tb);font-family:'Inter',sans-serif;font-size:12px;font-weight:500;cursor:pointer;transition:all .15s;white-space:nowrap}
+.sc-btn:hover{border-color:var(--purple);color:var(--purple);background:var(--purple-ll)}
+.sc-btn.a-teal  {border-color:var(--teal);  color:var(--teal);  background:var(--teal-l)}
+.sc-btn.a-blue  {border-color:var(--blue);  color:var(--blue);  background:var(--blue-l)}
+.sc-btn.a-purple{border-color:var(--purple);color:var(--purple);background:var(--purple-ll)}
+.sc-sub{font-size:12px;color:var(--tm);padding-left:2px}
 
-/* ─── GRID ─────────────────────────────────────── */
-.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
-.grid-full{margin-bottom:14px}
+/* CONTENT */
+.cnt{padding:0 24px 32px;display:flex;flex-direction:column;gap:14px}
 
-/* ─── CARDS ────────────────────────────────────── */
-.card{background:var(--s1);border:1px solid var(--bd);border-radius:var(--r-lg);overflow:hidden}
-.card-hdr{padding:13px 18px;border-bottom:1px solid var(--bd2);display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
-.card-title{font-size:12px;font-weight:700;letter-spacing:.04em}
-.badge{font-family:'DM Mono',monospace;font-size:10px;background:var(--s2);border:1px solid var(--bd);border-radius:4px;padding:2px 7px;color:var(--t2)}
-.chart-wrap{padding:14px 14px 8px;height:230px;position:relative}
+/* CARD */
+.card{background:var(--white);border:1px solid var(--bd);border-radius:var(--rl);box-shadow:var(--sh-s);overflow:hidden}
+.ch{padding:13px 18px;border-bottom:1px solid var(--bd-l);display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.ct{font-size:13px;font-weight:600;color:var(--th)}
+.chr{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
 
-/* ─── CAPACITY TABLE ───────────────────────────── */
+/* PILL */
+.pill{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:600;white-space:nowrap}
+.p-teal  {background:var(--teal-l);  color:var(--teal)}
+.p-blue  {background:var(--blue-l);  color:var(--blue)}
+.p-purple{background:var(--purple-l);color:var(--purple-d)}
+.p-amber {background:var(--amber-l); color:var(--amber)}
+.p-green {background:var(--green-l); color:var(--green)}
+.p-red   {background:var(--red-l);   color:var(--red)}
+.p-gray  {background:#F4F5F7;        color:var(--tm);border:1px solid var(--bd)}
+.pd{width:6px;height:6px;border-radius:50%;background:currentColor}
+
+/* KPI */
+.kpi-g{display:grid;grid-template-columns:repeat(5,1fr);gap:11px}
+.kpi{background:var(--white);border:1px solid var(--bd);border-radius:var(--rl);box-shadow:var(--sh-s);padding:16px;border-top:3px solid var(--kc,var(--purple))}
+.kl{font-size:11px;font-weight:500;color:var(--tm);text-transform:uppercase;letter-spacing:.04em;margin-bottom:7px}
+.kv{font-size:21px;font-weight:700;color:var(--th);line-height:1}
+.ks{font-size:11px;color:var(--tm);margin-top:4px}
+
+/* GRID */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+
+/* CHARTS */
+.cw{padding:14px 14px 8px;height:230px;position:relative}
+.cw-t{padding:14px 14px 8px;height:260px;position:relative}
+
+/* TABLE */
 table{width:100%;border-collapse:collapse}
-th{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--t2);text-align:left;padding:9px 16px;border-bottom:1px solid var(--bd2);font-weight:400}
-td{padding:9px 16px;font-family:'DM Mono',monospace;font-size:11px;color:var(--t2);border-bottom:1px solid var(--bd2)}
-td:first-child{color:var(--t1)}
-tr:last-child td{border-bottom:none}
-tr.total-row{background:var(--s2)}
-tr.total-row td{color:var(--t1);font-weight:500}
-.dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:7px;flex-shrink:0}
-.role-cell{display:flex;align-items:center}
-.watch{font-size:12px;margin-left:4px}
+thead th{padding:8px 16px;text-align:left;font-size:11px;font-weight:600;color:var(--tm);text-transform:uppercase;letter-spacing:.04em;border-bottom:2px solid var(--bd);background:#FAFBFF}
+tbody td{padding:9px 16px;font-size:13px;color:var(--tb);border-bottom:1px solid var(--bd-l)}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover td{background:#FAFBFF}
+tr.tr{background:#F7F5FF}
+tr.tr td{font-weight:600;color:var(--th);border-bottom:none}
+.rc{display:flex;align-items:center;gap:7px}
+.rd{width:8px;height:8px;border-radius:50%;flex-shrink:0}
 
-/* ─── FTE ROW ──────────────────────────────────── */
-.assump-row{display:flex;gap:6px;flex-wrap:wrap;padding:10px 16px;border-bottom:1px solid var(--bd2)}
-.chip{font-family:'DM Mono',monospace;font-size:9px;color:var(--t2);background:var(--s2);border:1px solid var(--bd);border-radius:4px;padding:3px 7px}
-.chip.hl{color:var(--teal);border-color:rgba(29,158,117,.4);background:rgba(29,158,117,.08)}
+/* ASSUMP ROW */
+.ar{padding:7px 16px;border-bottom:1px solid var(--bd-l);display:flex;gap:5px;flex-wrap:wrap;background:var(--page-bg)}
+.chip{font-size:11px;color:var(--tm);background:var(--white);border:1px solid var(--bd);border-radius:4px;padding:2px 8px}
+.chip-hl{background:var(--purple-ll);border-color:rgba(92,74,206,.3);color:var(--purple-d);font-weight:600}
 
-/* ─── STRESS TEST ──────────────────────────────── */
-.stress-body{padding:16px 18px;display:flex;flex-direction:column;gap:16px}
-.mini-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
-.mini-card{background:var(--bg);border:1px solid var(--bd2);border-radius:var(--r-md);padding:10px 12px}
-.mini-lbl{font-family:'DM Mono',monospace;font-size:9px;color:var(--t2);margin-bottom:5px}
-.mini-val{font-family:'DM Mono',monospace;font-size:14px;font-weight:500}
-.slider-block{display:flex;flex-direction:column;gap:5px}
-.slider-hdr{display:flex;justify-content:space-between;font-family:'DM Mono',monospace;font-size:11px;color:var(--t2)}
-.slider-hdr span:last-child{font-weight:500}
+/* STRESS TEST */
+.sb{padding:16px 18px;display:flex;flex-direction:column;gap:14px}
+.mg{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.mc{background:var(--page-bg);border:1px solid var(--bd);border-radius:var(--r);padding:11px 13px}
+.ml{font-size:11px;color:var(--tm);font-weight:500;margin-bottom:4px}
+.mv{font-size:15px;font-weight:700;color:var(--th)}
+
+/* RANGE */
+.slr{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.slb{display:flex;flex-direction:column;gap:5px}
+.slh{display:flex;justify-content:space-between;font-size:12px;font-weight:500;color:var(--tb)}
+.slh span:last-child{font-weight:600;color:var(--purple)}
 input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:4px;border-radius:2px;background:var(--bd);outline:none;cursor:pointer}
-input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:var(--teal);cursor:pointer;box-shadow:0 0 6px rgba(29,158,117,.4)}
-input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:var(--teal);cursor:pointer;border:none}
-.slider-foot{display:flex;justify-content:space-between;font-family:'DM Mono',monospace;font-size:9px;color:var(--t3)}
-.toggle-row{display:flex;align-items:center;justify-content:space-between;background:var(--bg);border:1px solid var(--bd2);border-radius:var(--r-md);padding:10px 14px}
-.toggle-info p{font-size:11px;font-weight:600;margin-bottom:3px}
-.toggle-info small{font-family:'DM Mono',monospace;font-size:10px;color:var(--t2)}
-.toggle-btn{padding:5px 12px;border-radius:6px;border:1px solid var(--bd);background:transparent;color:var(--t2);font-family:'DM Mono',monospace;font-size:11px;cursor:pointer;transition:all .15s;min-width:44px;text-align:center}
-.toggle-btn.on{border-color:var(--amber);color:var(--amber);background:rgba(186,117,23,.08)}
-.cap-bar-wrap{display:flex;flex-direction:column;gap:5px}
-.cap-bar-hdr{display:flex;justify-content:space-between;font-family:'DM Mono',monospace;font-size:10px;color:var(--t2)}
-.cap-bar-bg{height:7px;background:var(--s2);border-radius:4px;overflow:hidden;border:1px solid var(--bd2)}
-.cap-bar-fill{height:100%;border-radius:4px;transition:width .3s,background .3s}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:15px;height:15px;border-radius:50%;background:var(--purple);border:2px solid #fff;box-shadow:0 1px 4px rgba(92,74,206,.35);cursor:pointer}
+input[type=range]::-moz-range-thumb{width:15px;height:15px;border-radius:50%;background:var(--purple);border:2px solid #fff;cursor:pointer}
+.slf{display:flex;justify-content:space-between;font-size:11px;color:var(--ts)}
 
-/* ─── GAP BADGE ────────────────────────────────── */
-#gapBadge{font-family:'DM Mono',monospace;font-size:11px;border-radius:4px;padding:3px 9px;font-weight:700;border:1px solid;transition:all .2s}
+/* PROGRESS */
+.pb{display:flex;flex-direction:column;gap:5px}
+.pbh{display:flex;justify-content:space-between;font-size:12px;color:var(--tm)}
+.pbb{height:7px;background:var(--page-bg);border-radius:4px;overflow:hidden;border:1px solid var(--bd)}
+.pbf{height:100%;border-radius:4px;transition:width .25s,background .25s}
 
-/* ─── WATCH ITEMS ──────────────────────────────── */
-.watch-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:0 32px 48px}
-.watch-lbl{font-family:'DM Mono',monospace;font-size:10px;color:var(--t2);letter-spacing:.1em;text-transform:uppercase;padding:0 32px 12px}
-.watch-card{background:var(--s1);border:1px solid var(--bd);border-radius:var(--r-md);padding:14px 16px;border-top:2px solid var(--wc,var(--teal))}
-.watch-title{font-size:12px;font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:6px}
-.watch-body{font-family:'DM Mono',monospace;font-size:10px;color:var(--t2);line-height:1.75}
+/* TOGGLE */
+.tgb{display:flex;align-items:center;justify-content:space-between;background:var(--page-bg);border:1px solid var(--bd);border-radius:var(--r);padding:11px 14px;gap:12px}
+.ti .tit{font-size:13px;font-weight:500;color:var(--th)}
+.ti .tis{font-size:11px;color:var(--tm);margin-top:2px}
+.tb2{padding:5px 13px;border-radius:20px;border:1.5px solid var(--bd);background:var(--white);color:var(--tm);font-family:'Inter',sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;min-width:42px;text-align:center;flex-shrink:0}
+.tb2.on{border-color:var(--amber);color:var(--amber);background:var(--amber-l)}
 
-/* ─── FOOTER ───────────────────────────────────── */
-footer{text-align:center;padding:24px 32px;border-top:1px solid var(--bd);font-family:'DM Mono',monospace;font-size:10px;color:var(--t3)}
-footer a{color:var(--t3);text-decoration:none}
-footer a:hover{color:var(--teal)}
+/* WATCH */
+.ws{padding:0 24px 36px}
+.wh{font-size:12px;font-weight:600;color:var(--tm);text-transform:uppercase;letter-spacing:.06em;margin-bottom:11px;display:flex;align-items:center;gap:6px}
+.wg{display:grid;grid-template-columns:repeat(4,1fr);gap:11px}
+.wc{background:var(--white);border:1px solid var(--bd);border-radius:var(--rl);box-shadow:var(--sh-s);padding:15px;border-left:3px solid var(--wcc,var(--purple))}
+.wt{font-size:13px;font-weight:600;color:var(--th);margin-bottom:7px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.wb{font-size:12px;color:var(--tm);line-height:1.7}
 
-/* ─── RESPONSIVE ───────────────────────────────── */
-@media(max-width:1100px){.kpi-grid{grid-template-columns:repeat(3,1fr)}.watch-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:800px){.grid-2{grid-template-columns:1fr}.kpi-grid{grid-template-columns:repeat(2,1fr)}.watch-grid{grid-template-columns:1fr}}
+/* FOOTER */
+footer{border-top:1px solid var(--bd);padding:13px 24px;display:flex;align-items:center;gap:6px;font-size:12px;color:var(--ts)}
+footer a{color:var(--blue);text-decoration:none}
+footer a:hover{text-decoration:underline}
+.fs{color:var(--bd)}
+
+@media(max-width:1100px){.kpi-g{grid-template-columns:repeat(3,1fr)}.wg{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:820px){.g2{grid-template-columns:1fr}.kpi-g{grid-template-columns:repeat(2,1fr)}.wg{grid-template-columns:1fr}.slr{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 
-<!-- ══════════════════ LOCK ════════════════════ -->
+<!-- LOCK -->
 <div id="lock">
-  <div class="lock-card">
-    <div class="lock-icon">🔐</div>
-    <div>
-      <h2 class="lock-title">PS Capacity Dashboard</h2>
-      <p class="lock-sub">2026 · THYNK.CLOUD · RESTRICTED</p>
+  <div class="lk-card">
+    <div class="lk-brand">
+      <div class="lk-mark">T</div>
+      <div class="lk-name">Thynk<span>.Cloud</span></div>
     </div>
-    <input id="pwInput" class="lock-input" type="password" placeholder="Enter access code" autocomplete="off"/>
-    <button class="lock-btn" onclick="unlock()">UNLOCK DASHBOARD</button>
-    <p class="lock-err" id="lockErr"></p>
+    <div>
+      <h2 class="lk-title">PS Capacity Dashboard</h2>
+      <p class="lk-sub">2026 · Restricted · VP Delivery &amp; CS only</p>
+    </div>
+    <div>
+      <label class="f-lbl" for="pwInput">Access code</label>
+      <input id="pwInput" class="f-input" type="password" placeholder="Enter your access code" autocomplete="off"/>
+    </div>
+    <button class="btn-p" onclick="unlock()">Sign in</button>
+    <p class="lk-err" id="lockErr"></p>
   </div>
 </div>
 
-<!-- ══════════════════ APP ═════════════════════ -->
+<!-- APP -->
 <div id="app">
 
-  <!-- NAV -->
   <nav>
-    <div class="nav-logo">THYNK<span>.CLOUD</span></div>
-    <span class="nav-badge">PS Management</span>
-    <div class="nav-spacer"></div>
-    <div class="nav-user">
-      <div class="nav-avatar">NA</div>
-      nicolas.arfouilloux
-      <button class="lock-sm" onclick="lock()">🔒 Lock</button>
+    <div class="n-brand">
+      <div class="n-mark">T</div>
+      <div class="n-name">Thynk<span>.Cloud</span></div>
+    </div>
+    <div class="n-div"></div>
+    <span class="n-path">PS Management</span>
+    <div class="n-sp"></div>
+    <div class="n-user">
+      <div class="n-av">NA</div>
+      <span class="n-nm">Nicolas A.</span>
+      <button class="n-lock" onclick="lock()">Lock</button>
     </div>
   </nav>
 
-  <!-- HEADER -->
-  <div class="page">
-    <div class="page-hdr">
-      <div>
-        <h1 class="page-title">Capacity <span>Dashboard</span></h1>
-        <p class="page-sub">PS &amp; DELIVERY · FTE MODELLING · 2026 · SOURCE: CONVERSATION 490ff41e</p>
+  <div class="bc">
+    <a href="#">Professional Services</a>
+    <span class="bc-s">›</span>
+    <span>Capacity Dashboard</span>
+  </div>
+
+  <div class="ph">
+    <div>
+      <h1>Capacity Dashboard — 2026</h1>
+      <p>PS &amp; Delivery · FTE Modelling · Source: conversation 490ff41e</p>
+    </div>
+    <div class="ts-bdg">Updated <span id="tsLabel"></span></div>
+  </div>
+
+  <div class="sc-bar">
+    <span class="sc-lbl">Scenario:</span>
+    <button class="sc-btn a-teal" id="sc-runRate" onclick="setSc('runRate',this)">Run-rate (Q1×4) ★</button>
+    <button class="sc-btn" id="sc-linear" onclick="setSc('linear',this)">Linear growth</button>
+    <button class="sc-btn" id="sc-compound" onclick="setSc('compound',this)">Compounding</button>
+    <span class="sc-sub" id="scSub">€90K/mo × 12 · +33.7% YoY</span>
+  </div>
+
+  <div class="cnt">
+
+    <!-- KPI -->
+    <div class="kpi-g">
+      <div class="kpi" style="--kc:var(--teal)">
+        <div class="kl">2026 Forecast</div>
+        <div class="kv" id="kForecast" style="color:var(--teal)">€1,080K</div>
+        <div class="ks">Run-rate base case</div>
       </div>
-      <div class="page-ts">
-        Last model run<br>
-        <strong id="tsLabel" style="color:var(--t1);font-size:12px"></strong>
+      <div class="kpi" style="--kc:var(--green)">
+        <div class="kl">Q1 2026 Actuals</div>
+        <div class="kv" style="color:var(--green)">€270K</div>
+        <div class="ks">€90K/mo · +33.7% vs Q1'25</div>
+      </div>
+      <div class="kpi" style="--kc:var(--blue)">
+        <div class="kl">Billable Capacity</div>
+        <div class="kv" style="color:var(--blue)">9,900 hrs</div>
+        <div class="ks">1,238 billable days / yr</div>
+      </div>
+      <div class="kpi" style="--kc:var(--purple)">
+        <div class="kl">Utilisation</div>
+        <div class="kv" style="color:var(--purple)">76.6%</div>
+        <div class="ks">Break-even: €872/day</div>
+      </div>
+      <div class="kpi" style="--kc:var(--amber)">
+        <div class="kl">YoY Growth 2024→25</div>
+        <div class="kv" style="color:var(--amber)">+42.8%</div>
+        <div class="ks">+€242K absolute delta</div>
       </div>
     </div>
 
-    <!-- KPI STRIP -->
-    <div class="kpi-grid">
-      <div class="kpi" style="--c:var(--teal)">
-        <p class="kpi-lbl">2026 Working Forecast</p>
-        <p class="kpi-val" id="kForecast">€1,080K</p>
-        <p class="kpi-sub">Run-rate base case</p>
-      </div>
-      <div class="kpi" style="--c:var(--green)">
-        <p class="kpi-lbl">Q1 2026 Actuals</p>
-        <p class="kpi-val" style="color:var(--green)">€270K</p>
-        <p class="kpi-sub">€90K/mo · +33.7% vs Q1'25</p>
-      </div>
-      <div class="kpi" style="--c:var(--blue)">
-        <p class="kpi-lbl">Team Billable Capacity</p>
-        <p class="kpi-val" style="color:var(--blue)">9,900 hrs</p>
-        <p class="kpi-sub">1,238 billable days / yr</p>
-      </div>
-      <div class="kpi" style="--c:var(--purple)">
-        <p class="kpi-lbl">Weighted Utilisation</p>
-        <p class="kpi-val" style="color:var(--purple)">76.6%</p>
-        <p class="kpi-sub">Break-even: €872/day</p>
-      </div>
-      <div class="kpi" style="--c:var(--amber)">
-        <p class="kpi-lbl">YoY Growth 2024→25</p>
-        <p class="kpi-val" style="color:var(--amber)">+42.8%</p>
-        <p class="kpi-sub">+€242K absolute delta</p>
-      </div>
-    </div>
-
-    <!-- SCENARIO BAR -->
-    <div class="sc-bar">
-      <span class="sc-lbl">2026 scenario:</span>
-      <button class="sc-btn active" id="sc-runRate" data-color="var(--teal)" onclick="setScenario('runRate',this)">
-        Run-rate (Q1×4) ★
-      </button>
-      <button class="sc-btn" id="sc-linear" data-color="var(--blue)" onclick="setScenario('linear',this)">
-        Linear growth
-      </button>
-      <button class="sc-btn" id="sc-compound" data-color="var(--purple)" onclick="setScenario('compound',this)">
-        Compounding
-      </button>
-      <span class="mono" id="scSub" style="font-size:10px;color:var(--t2)">€90K/mo × 12 · +33.7% YoY</span>
-    </div>
-
-    <!-- MAIN GRID ROW 1: annual + monthly charts -->
-    <div class="grid-full card" style="margin-bottom:14px">
-      <div class="card-hdr">
-        <span class="card-title">Backlog Evolution — Annual Revenue (€K)</span>
-        <div style="display:flex;gap:12px;align-items:center">
-          <span style="display:flex;align-items:center;gap:5px;font-family:'DM Mono',monospace;font-size:10px;color:var(--t2)">
-            <span style="width:8px;height:8px;border-radius:2px;background:var(--teal);display:inline-block"></span>Actual
-          </span>
-          <span style="display:flex;align-items:center;gap:5px;font-family:'DM Mono',monospace;font-size:10px;color:var(--t2)">
-            <span style="width:8px;height:8px;border-radius:2px;background:var(--amber);display:inline-block"></span>Q1 partial
-          </span>
-          <span style="display:flex;align-items:center;gap:5px;font-family:'DM Mono',monospace;font-size:10px;color:var(--t2)">
-            <span id="fcLeg" style="width:8px;height:8px;border-radius:2px;background:var(--teal);display:inline-block"></span>
-            <span id="fcLegLbl">Forecast (run-rate)</span>
-          </span>
+    <!-- ANNUAL CHART -->
+    <div class="card">
+      <div class="ch">
+        <span class="ct">Backlog Evolution — Annual Revenue (€K)</span>
+        <div class="chr">
+          <span class="pill p-teal"><span class="pd"></span>Actual</span>
+          <span class="pill p-amber"><span class="pd"></span>Q1 partial</span>
+          <span id="fcPill" class="pill p-teal"><span class="pd"></span>Forecast</span>
         </div>
       </div>
-      <div class="chart-wrap" style="height:240px">
-        <canvas id="annualChart"></canvas>
-      </div>
+      <div class="cw-t"><canvas id="annualChart"></canvas></div>
     </div>
 
-    <!-- ROW 2: monthly + capacity table -->
-    <div class="grid-2">
-
+    <!-- MONTHLY + TABLE -->
+    <div class="g2">
       <div class="card">
-        <div class="card-hdr">
-          <span class="card-title">Monthly Distribution — 2026</span>
-          <span id="moBadge" class="badge">Q1 actual · Q2–Q4 projected</span>
+        <div class="ch">
+          <span class="ct">Monthly Distribution — 2026</span>
+          <span class="pill p-gray">Q1 actual · Q2–Q4 projected</span>
         </div>
-        <div class="chart-wrap" style="height:200px">
-          <canvas id="monthlyChart"></canvas>
-        </div>
+        <div class="cw"><canvas id="monthlyChart"></canvas></div>
       </div>
 
       <div class="card">
-        <div class="card-hdr">
-          <span class="card-title">Capacity Model — Role Breakdown</span>
-          <div style="display:flex;gap:5px">
-            <span class="badge">225 days/FTE</span>
-            <span class="badge">1,800 hrs/FTE</span>
+        <div class="ch">
+          <span class="ct">Capacity Model — Role Breakdown</span>
+          <div class="chr">
+            <span class="pill p-gray">225 days/FTE</span>
+            <span class="pill p-gray">1,800 hrs/FTE</span>
           </div>
         </div>
-        <div class="assump-row">
+        <div class="ar">
           <span class="chip">260 calendar days</span>
           <span class="chip">−10 bank holidays</span>
           <span class="chip">−25 PTO days</span>
-          <span class="chip hl">= 225 net / FTE</span>
+          <span class="chip chip-hl">= 225 net / FTE</span>
         </div>
         <table>
           <thead>
-            <tr>
-              <th>Role</th><th>FTE</th><th>Util</th><th>Bill. hrs</th><th>Bill. days</th>
-            </tr>
+            <tr><th>Role</th><th>FTE</th><th>Util</th><th>Bill. hrs</th><th>Bill. days</th></tr>
           </thead>
           <tbody>
             <tr>
-              <td><div class="role-cell"><span class="dot" style="background:var(--purple)"></span>Senior Functional<span class="watch">⚠</span></div></td>
-              <td style="color:var(--purple);font-weight:500">3</td><td>60%</td><td>3,240</td><td>405</td>
+              <td><div class="rc"><span class="rd" style="background:var(--purple)"></span>Senior Functional<span class="pill p-amber" style="font-size:10px;padding:1px 6px;margin-left:4px">⚠ Watch</span></div></td>
+              <td><strong style="color:var(--purple)">3</strong></td><td>60%</td><td>3,240</td><td>405</td>
             </tr>
             <tr>
-              <td><div class="role-cell"><span class="dot" style="background:var(--amber)"></span>Trainer<span class="watch">⚠</span></div></td>
-              <td style="color:var(--amber);font-weight:500">1</td><td>50%</td><td>900</td><td>113</td>
+              <td><div class="rc"><span class="rd" style="background:var(--amber)"></span>Trainer<span class="pill p-amber" style="font-size:10px;padding:1px 6px;margin-left:4px">⚠ Watch</span></div></td>
+              <td><strong style="color:var(--amber)">1</strong></td><td>50%</td><td>900</td><td>113</td>
             </tr>
             <tr>
-              <td>
-                <div class="role-cell">
-                  <span class="dot" style="background:var(--teal)"></span>IC / Other Roles
-                  <span class="chip" style="margin-left:6px;font-size:9px">derived</span>
-                </div>
-              </td>
-              <td style="color:var(--teal);font-weight:500">~4</td><td>—</td><td>5,760</td><td>720</td>
+              <td><div class="rc"><span class="rd" style="background:var(--teal)"></span>IC / Other Roles<span class="pill p-gray" style="font-size:10px;padding:1px 6px;margin-left:4px">derived</span></div></td>
+              <td><strong style="color:var(--teal)">~4</strong></td><td>—</td><td>5,760</td><td>720</td>
             </tr>
-            <tr class="total-row">
-              <td><strong style="color:var(--teal)">Total</strong></td>
+            <tr class="tr">
+              <td><div class="rc"><span class="rd" style="background:var(--purple)"></span><strong>Total</strong></div></td>
               <td>—</td>
-              <td style="color:var(--teal);font-weight:700">76.6%</td>
+              <td><strong style="color:var(--green)">76.6%</strong></td>
               <td><strong>9,900</strong></td>
               <td><strong>1,238</strong></td>
             </tr>
           </tbody>
         </table>
-        <div style="padding:10px 16px;border-top:1px solid var(--bd2)">
-          <p class="mono" style="font-size:10px;color:var(--t2);line-height:1.7">
-            ℹ No sick-leave buffer modelled. A <strong style="color:var(--amber)">5% haircut</strong> (~495 hrs / 62 days) is recommended — toggle below.
-          </p>
+        <div style="padding:9px 16px;border-top:1px solid var(--bd-l);background:var(--page-bg)">
+          <p style="font-size:11px;color:var(--tm);line-height:1.65">No sick-leave buffer modelled. A <strong style="color:var(--amber)">5% haircut</strong> (~495 hrs / 62 days) is recommended — enable below.</p>
         </div>
       </div>
     </div>
 
-    <!-- ROW 3: stress test full width -->
-    <div class="grid-full card" style="margin-bottom:14px">
-      <div class="card-hdr">
-        <span class="card-title">Rate Card Stress Test</span>
-        <span id="gapBadge"></span>
+    <!-- STRESS TEST -->
+    <div class="card">
+      <div class="ch">
+        <span class="ct">Rate Card Stress Test</span>
+        <span id="gapBadge" class="pill"></span>
       </div>
-      <div class="stress-body">
-
-        <div class="mini-grid">
-          <div class="mini-card"><p class="mini-lbl">Revenue Capacity</p><p class="mini-val" id="mRevCap" style="color:var(--teal)">—</p></div>
-          <div class="mini-card"><p class="mini-lbl">Target (Run-rate)</p><p class="mini-val" style="color:var(--t2)">€1,080K</p></div>
-          <div class="mini-card"><p class="mini-lbl">Gap vs Target</p><p class="mini-val" id="mGap">—</p></div>
-          <div class="mini-card"><p class="mini-lbl">Total Billable Days</p><p class="mini-val" id="mDays" style="color:var(--blue)">—</p></div>
-          <div class="mini-card"><p class="mini-lbl">Applied Daily Rate</p><p class="mini-val" id="mRate" style="color:var(--teal)">—</p></div>
-          <div class="mini-card"><p class="mini-lbl">Buffer (5%)</p><p class="mini-val" id="mBuffer" style="color:var(--t2)">Off</p></div>
+      <div class="sb">
+        <div class="mg">
+          <div class="mc"><div class="ml">Revenue Capacity</div><div class="mv" id="mRevCap">—</div></div>
+          <div class="mc"><div class="ml">Target (Run-rate)</div><div class="mv" style="color:var(--tm)">€1,080K</div></div>
+          <div class="mc"><div class="ml">Gap vs Target</div><div class="mv" id="mGap">—</div></div>
+          <div class="mc"><div class="ml">Total Billable Days</div><div class="mv" id="mDays">—</div></div>
+          <div class="mc"><div class="ml">Applied Daily Rate</div><div class="mv" id="mRate">—</div></div>
+          <div class="mc"><div class="ml">Buffer (5%)</div><div class="mv" id="mBuffer" style="color:var(--tm)">Off</div></div>
         </div>
 
-        <div class="cap-bar-wrap">
-          <div class="cap-bar-hdr">
-            <span>Capacity vs €1,080K target</span>
-            <span id="capPct">—</span>
-          </div>
-          <div class="cap-bar-bg"><div class="cap-bar-fill" id="capBarFill" style="width:0%;background:var(--teal)"></div></div>
+        <div class="pb">
+          <div class="pbh"><span>Capacity vs €1,080K target</span><span id="capPct">—</span></div>
+          <div class="pbb"><div class="pbf" id="progFill" style="width:0%"></div></div>
         </div>
 
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
-          <div class="slider-block">
-            <div class="slider-hdr">
-              <span>Blended daily rate</span>
-              <span id="rateDisp" style="color:var(--teal)">€872/day</span>
-            </div>
-            <input type="range" id="rateSlider" min="500" max="1400" step="10" value="872"
-              style="accent-color:var(--teal)" oninput="recalc()"/>
-            <div class="slider-foot">
-              <span>€500</span>
-              <span style="color:var(--teal)">▼ break-even €872</span>
-              <span>€1,400</span>
-            </div>
+        <div class="slr">
+          <div class="slb">
+            <div class="slh"><span>Blended daily rate</span><span id="rateDisp">€872/day</span></div>
+            <input type="range" id="rateSlider" min="500" max="1400" step="10" value="872" oninput="recalc()"/>
+            <div class="slf"><span>€500</span><span style="color:var(--teal);font-weight:500">▼ break-even €872</span><span>€1,400</span></div>
           </div>
-          <div class="slider-block">
-            <div class="slider-hdr">
-              <span>Additional IC FTEs (+80% util)</span>
-              <span id="icDisp" style="color:var(--blue)">+0 FTE</span>
-            </div>
-            <input type="range" id="icSlider" min="0" max="6" step="1" value="0"
-              style="accent-color:var(--blue)" oninput="recalc()"/>
-            <div class="slider-foot">
-              <span>+0</span><span>+1</span><span>+2</span><span>+3</span><span>+4</span><span>+5</span><span>+6</span>
-            </div>
+          <div class="slb">
+            <div class="slh"><span>Additional IC FTEs</span><span id="icDisp" style="color:var(--blue)">+0 FTE</span></div>
+            <input type="range" id="icSlider" min="0" max="6" step="1" value="0" oninput="recalc()"/>
+            <div class="slf"><span>+0</span><span>+1</span><span>+2</span><span>+3</span><span>+4</span><span>+5</span><span>+6</span></div>
           </div>
         </div>
 
-        <div class="toggle-row">
-          <div class="toggle-info">
-            <p>Apply 5% sick-leave / attrition buffer</p>
-            <small>Removes ~62 days / 495 hrs from base capacity — recommended by analysis</small>
+        <div class="tgb">
+          <div class="ti">
+            <div class="tit">Apply 5% sick-leave / attrition buffer</div>
+            <div class="tis">Removes ~62 days / 495 hrs — recommended by analysis</div>
           </div>
-          <button class="toggle-btn" id="hcBtn" onclick="toggleHaircut()">Off</button>
+          <button class="tb2" id="hcBtn" onclick="toggleHaircut()">Off</button>
         </div>
-
       </div>
     </div>
 
-  </div><!-- /page -->
+  </div>
 
   <!-- WATCH ITEMS -->
-  <p class="watch-lbl mono">⚠ Watch items</p>
-  <div class="watch-grid">
-    <div class="watch-card" style="--wc:var(--green)">
-      <p class="watch-title"><span class="dot" style="background:var(--green)"></span>Forecast Confidence</p>
-      <p class="watch-body">Q1 run-rate of €1,080K is the most grounded scenario. +33.7% YoY is a realistic deceleration from 2024→25's 42.8% as the base grows. Q2 actuals will validate or revise the trajectory.</p>
+  <div class="ws">
+    <div class="wh">
+      <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M8 1.5L1 13.5h14L8 1.5Z" stroke="var(--amber)" stroke-width="1.5" stroke-linejoin="round"/><line x1="8" y1="6" x2="8" y2="9.5" stroke="var(--amber)" stroke-width="1.5" stroke-linecap="round"/><circle cx="8" cy="11.5" r=".75" fill="var(--amber)"/></svg>
+      Watch items
     </div>
-    <div class="watch-card" style="--wc:var(--teal)">
-      <p class="watch-title"><span class="dot" style="background:var(--teal)"></span>Blended Rate Gate</p>
-      <p class="watch-body">To hit €1,080K with 1,238 billable days, blended rate must be ≥€872/day. If rate card is lower, close more projects or add headcount — use the stress-test slider above.</p>
-    </div>
-    <div class="watch-card" style="--wc:var(--amber)">
-      <p class="watch-title"><span class="dot" style="background:var(--amber)"></span>Trainer Utilisation</p>
-      <p class="watch-body">Trainer at 50% billable delivers only 113 days/yr. Validate whether the non-billable 50% is structured (enablement, pre-sales) or unplanned slack. If idle, repurpose the role.</p>
-    </div>
-    <div class="watch-card" style="--wc:var(--purple)">
-      <p class="watch-title"><span class="dot" style="background:var(--purple)"></span>Sr. Functional Allocation</p>
-      <p class="watch-body">3 Sr. Functionals at 60% leave 2,160 combined non-billable hrs (40%). Ideal for pre-sales solutioning. A material capacity risk if time is idle — structured deployment plan recommended.</p>
+    <div class="wg">
+      <div class="wc" style="--wcc:var(--green)">
+        <div class="wt"><span class="pill p-green" style="padding:2px 7px;font-size:10px">Forecast</span>Confidence</div>
+        <div class="wb">Q1 run-rate of €1,080K is the most grounded scenario. +33.7% YoY is a realistic deceleration from 2024→25's 42.8% as the base grows. Q2 actuals will validate or revise the trajectory.</div>
+      </div>
+      <div class="wc" style="--wcc:var(--teal)">
+        <div class="wt"><span class="pill p-teal" style="padding:2px 7px;font-size:10px">Rate</span>Blended Rate Gate</div>
+        <div class="wb">To hit €1,080K with 1,238 billable days, blended rate must be ≥€872/day. If lower, close more projects or add headcount — use the slider above.</div>
+      </div>
+      <div class="wc" style="--wcc:var(--amber)">
+        <div class="wt"><span class="pill p-amber" style="padding:2px 7px;font-size:10px">Watch</span>Trainer Utilisation</div>
+        <div class="wb">Trainer at 50% billable delivers only 113 days/yr. Validate whether the non-billable 50% is structured (enablement, pre-sales) or unplanned slack. If idle, repurpose the role.</div>
+      </div>
+      <div class="wc" style="--wcc:var(--purple)">
+        <div class="wt"><span class="pill p-purple" style="padding:2px 7px;font-size:10px">Watch</span>Sr. Functional Allocation</div>
+        <div class="wb">3 Sr. Functionals at 60% leave 2,160 combined non-billable hrs. Ideal for pre-sales solutioning — material risk if idle. Structured deployment plan recommended.</div>
+      </div>
     </div>
   </div>
 
   <footer>
     <a href="https://github.com/narfouilloux/ps_capacity_model" target="_blank">📦 narfouilloux/ps_capacity_model</a>
-    &nbsp;·&nbsp; Source: Claude conversation 490ff41e &nbsp;·&nbsp; Thynk.Cloud Internal
+    <span class="fs">·</span> Source: Claude conversation 490ff41e
+    <span class="fs">·</span> Thynk.Cloud — Internal
   </footer>
 
-</div><!-- /app -->
+</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script>
-// ── CONFIG ─────────────────────────────────────
-const ACCESS_CODE = 'thynk2026'; // ← change before deploying
-
-// ── SCENARIO DATA ───────────────────────────────
+const ACCESS_CODE = 'thynk2026';
 const SC = {
-  runRate:  { label:'Run-rate (Q1×4)', sub:'€90K/mo × 12 · +33.7% YoY',    value:1080, color:'#1D9E75' },
-  linear:   { label:'Linear growth',   sub:'+€242K vs 2025 · +29.9% YoY',   value:1050, color:'#378ADD' },
-  compound: { label:'Compounding',     sub:'×1.428 vs 2025 · +42.8% YoY',   value:1154, color:'#7F77DD' },
+  runRate: {sub:'€90K/mo × 12 · +33.7% YoY', value:1080, color:'#008DA6', ac:'a-teal',   pc:'p-teal',   pl:'run-rate'},
+  linear:  {sub:'+€242K vs 2025 · +29.9% YoY',value:1050, color:'#0065CC', ac:'a-blue',   pc:'p-blue',   pl:'linear'},
+  compound:{sub:'×1.428 vs 2025 · +42.8% YoY', value:1154, color:'#5C4ACE', ac:'a-purple', pc:'p-purple', pl:'compound'},
 };
-let curSc = 'runRate';
-let dailyRate = 872, addIc = 0, haircut = false;
-let annualChart, monthlyChart;
+let curSc='runRate', dailyRate=872, addIc=0, haircut=false, aC=null, mC=null;
+const font={family:"'Inter',system-ui,sans-serif"};
+const gc='rgba(223,225,230,.55)';
+const CDEF={responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{backgroundColor:'#172B4D',borderColor:'#344563',borderWidth:1,padding:10,cornerRadius:6,titleColor:'#97A0AF',titleFont:{...font,size:11},bodyColor:'#fff',bodyFont:{...font,size:12},callbacks:{label:c=>` €${Math.round(c.parsed.y).toLocaleString()}K`}}}};
 
-// ── AUTH ────────────────────────────────────────
-function unlock() {
-  const v = document.getElementById('pwInput').value;
-  if (v === ACCESS_CODE) {
-    sessionStorage.setItem('ps_unlocked','1');
-    document.getElementById('lock').style.display = 'none';
-    document.getElementById('app').style.display = 'block';
-    document.getElementById('tsLabel').textContent = new Date().toLocaleString('en-GB',{
-      day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'
-    });
+function unlock(){
+  if(document.getElementById('pwInput').value===ACCESS_CODE){
+    sessionStorage.setItem('tc_ps','1');
+    document.getElementById('lock').style.display='none';
+    document.getElementById('app').style.display='block';
+    document.getElementById('tsLabel').textContent=new Date().toLocaleString('en-GB',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
     initCharts();
   } else {
-    document.getElementById('lockErr').textContent = 'Incorrect access code.';
-    document.getElementById('pwInput').value = '';
+    document.getElementById('lockErr').textContent='Incorrect access code. Please try again.';
+    document.getElementById('pwInput').value='';
+    document.getElementById('pwInput').focus();
   }
 }
-function lock() {
-  sessionStorage.removeItem('ps_unlocked');
-  document.getElementById('app').style.display = 'none';
-  document.getElementById('lock').style.display = 'flex';
-  document.getElementById('pwInput').value = '';
-  document.getElementById('lockErr').textContent = '';
+function lock(){
+  sessionStorage.removeItem('tc_ps');
+  document.getElementById('app').style.display='none';
+  document.getElementById('lock').style.display='flex';
+  document.getElementById('pwInput').value='';
+  document.getElementById('lockErr').textContent='';
 }
-document.getElementById('pwInput').addEventListener('keydown', e => { if(e.key==='Enter') unlock(); });
-if (sessionStorage.getItem('ps_unlocked') === '1') {
-  document.getElementById('lock').style.display = 'none';
-  document.getElementById('app').style.display = 'block';
-  document.getElementById('tsLabel').textContent = new Date().toLocaleString('en-GB',{
-    day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'
-  });
+document.getElementById('pwInput').addEventListener('keydown',e=>{if(e.key==='Enter')unlock();});
+if(sessionStorage.getItem('tc_ps')==='1'){
+  document.getElementById('lock').style.display='none';
+  document.getElementById('app').style.display='block';
+  document.getElementById('tsLabel').textContent=new Date().toLocaleString('en-GB',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
 }
 
-// ── CHART DEFAULTS ──────────────────────────────
-const CDEFS = {
-  responsive: true,
-  maintainAspectRatio: false,
-  plugins: {
-    legend: { display: false },
-    tooltip: {
-      backgroundColor: 'rgba(22,27,34,0.95)',
-      borderColor: '#30363d',
-      borderWidth: 1,
-      padding: 10,
-      titleColor: '#8b949e',
-      bodyColor: '#e6edf3',
-      bodyFont: { family: "'DM Mono','Courier New',monospace", size: 11 },
-      callbacks: { label: ctx => ` €${Math.round(ctx.parsed.y).toLocaleString()}K` }
-    }
-  }
-};
+function q2q4(){return Math.round((SC[curSc].value-270)/9);}
 
-function q2q4() { return Math.round((SC[curSc].value - 270) / 9); }
-
-function initCharts() {
-  if (annualChart) annualChart.destroy();
-  if (monthlyChart) monthlyChart.destroy();
-
-  // Annual chart
-  annualChart = new Chart(document.getElementById('annualChart'), {
-    type: 'bar',
-    data: {
-      labels: ['2024 FY','2025 FY','2026 Q1','2026 Forecast'],
-      datasets: [
-        {
-          data: [566, 808, 270, SC[curSc].value],
-          backgroundColor: ['#1D9E75','#1D9E75','#BA7517', SC[curSc].color],
-          borderRadius: 5, borderSkipped: false, maxBarThickness: 72
-        },
-        {
-          type: 'line', data: [1080,1080,1080,1080],
-          borderColor: '#1D9E7566', borderWidth: 1.5, borderDash: [5,4],
-          pointRadius: 0, fill: false, label: '€1,080K target'
-        }
-      ]
-    },
-    options: {
-      ...CDEFS,
-      scales: {
-        x: { grid:{display:false}, ticks:{font:{size:11,family:"'DM Mono',monospace"},color:'#8b949e'} },
-        y: {
-          grid:{color:'rgba(48,54,61,0.6)'},
-          ticks:{font:{size:10,family:"'DM Mono',monospace"},color:'#8b949e',callback:v=>`€${v}K`},
-          max: 1350, min: 0
-        }
-      }
-    }
-  });
-
-  // Monthly chart
-  const q = q2q4();
-  monthlyChart = new Chart(document.getElementById('monthlyChart'), {
-    type: 'bar',
-    data: {
-      labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
-      datasets: [{
-        data: [90,90,90,q,q,q,q,q,q,q,q,q],
-        backgroundColor: [...Array(3).fill('#1D9E75'), ...Array(9).fill(SC[curSc].color + '99')],
-        borderRadius: 3, borderSkipped: false, maxBarThickness: 30
-      }]
-    },
-    options: {
-      ...CDEFS,
-      scales: {
-        x: {
-          grid:{display:false},
-          ticks:{font:{size:9,family:"'DM Mono',monospace"},color:'#8b949e',autoSkip:false,maxRotation:0}
-        },
-        y: {
-          grid:{color:'rgba(48,54,61,0.6)'},
-          ticks:{font:{size:9,family:"'DM Mono',monospace"},color:'#8b949e',callback:v=>`€${v}K`},
-          max: 160, min: 0
-        }
-      }
-    }
-  });
-
+function initCharts(){
+  if(aC)aC.destroy();
+  if(mC)mC.destroy();
+  aC=new Chart(document.getElementById('annualChart'),{type:'bar',data:{
+    labels:['2024 FY','2025 FY','2026 Q1','2026 Forecast'],
+    datasets:[
+      {data:[566,808,270,SC[curSc].value],backgroundColor:['#008DA6','#008DA6','#B35C00',SC[curSc].color],borderRadius:6,borderSkipped:false,maxBarThickness:80},
+      {type:'line',data:[1080,1080,1080,1080],borderColor:'#008DA6',borderWidth:1.5,borderDash:[5,4],pointRadius:0,fill:false}
+    ]},options:{...CDEF,scales:{x:{grid:{display:false},ticks:{font,color:'#5E6C84',size:12}},y:{grid:{color:gc},border:{dash:[4,4]},ticks:{font,color:'#5E6C84',callback:v=>`€${v}K`},max:1400,min:0}}}});
+  const q=q2q4();
+  mC=new Chart(document.getElementById('monthlyChart'),{type:'bar',data:{
+    labels:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+    datasets:[{data:[90,90,90,q,q,q,q,q,q,q,q,q],backgroundColor:[...Array(3).fill('#008DA6'),...Array(9).fill(SC[curSc].color+'99')],borderRadius:4,borderSkipped:false,maxBarThickness:28}]},
+    options:{...CDEF,scales:{x:{grid:{display:false},ticks:{font,color:'#5E6C84',autoSkip:false,maxRotation:0,font:{...font,size:10}}},y:{grid:{color:gc},border:{dash:[4,4]},ticks:{font,color:'#5E6C84',callback:v=>`€${v}K`},max:160,min:0}}}});
   recalc();
 }
 
-// ── SCENARIO ────────────────────────────────────
-function setScenario(key, btn) {
-  curSc = key;
-  const sc = SC[key];
-  // Update buttons
-  document.querySelectorAll('.sc-btn').forEach(b => {
-    b.classList.remove('active');
-    b.style.removeProperty('--c');
-  });
-  btn.classList.add('active');
-  btn.style.setProperty('--c', sc.color);
-
-  document.getElementById('scSub').textContent = sc.sub;
-  document.getElementById('kForecast').textContent = `€${sc.value.toLocaleString()}K`;
-  document.getElementById('fcLeg').style.background = sc.color;
-  document.getElementById('fcLegLbl').textContent = `Forecast (${sc.label.toLowerCase()})`;
-
-  if (!annualChart) return;
-
-  // Update annual chart
-  annualChart.data.datasets[0].data[3] = sc.value;
-  annualChart.data.datasets[0].backgroundColor[3] = sc.color;
-  annualChart.update('none');
-
-  // Update monthly chart
-  const q = q2q4();
-  for (let i = 3; i < 12; i++) {
-    monthlyChart.data.datasets[0].data[i] = q;
-    monthlyChart.data.datasets[0].backgroundColor[i] = sc.color + '99';
-  }
-  monthlyChart.update('none');
+function setSc(key,btn){
+  curSc=key;
+  const sc=SC[key];
+  document.querySelectorAll('.sc-btn').forEach(b=>b.className='sc-btn');
+  btn.classList.add(sc.ac);
+  document.getElementById('scSub').textContent=sc.sub;
+  document.getElementById('kForecast').textContent=`€${sc.value.toLocaleString()}K`;
+  const fp=document.getElementById('fcPill');
+  fp.className=`pill ${sc.pc}`;
+  fp.innerHTML=`<span class="pd"></span>Forecast (${sc.pl})`;
+  if(!aC)return;
+  aC.data.datasets[0].data[3]=sc.value;
+  aC.data.datasets[0].backgroundColor[3]=sc.color;
+  aC.update('none');
+  const q=q2q4();
+  for(let i=3;i<12;i++){mC.data.datasets[0].data[i]=q;mC.data.datasets[0].backgroundColor[i]=sc.color+'99';}
+  mC.update('none');
   recalc();
 }
 
-// ── STRESS TEST ─────────────────────────────────
-function recalc() {
-  dailyRate = parseInt(document.getElementById('rateSlider').value);
-  addIc = parseInt(document.getElementById('icSlider').value);
-
-  const baseDays = haircut ? Math.round(1238 * 0.95) : 1238;
-  const addDays  = Math.round(addIc * 225 * 0.80);
-  const total    = baseDays + addDays;
-  const cap      = Math.round(total * dailyRate / 1000);
-  const gap      = cap - 1080;
-  const pct      = Math.min(150, Math.round(cap / 1080 * 100));
-  const gapColor = gap >= 0 ? '#1D9E75' : '#E24B4A';
-
-  document.getElementById('rateDisp').textContent = `€${dailyRate}/day`;
-  document.getElementById('rateDisp').style.color  = dailyRate >= 872 ? '#1D9E75' : '#E24B4A';
-
-  const icLabel = addIc > 0 ? `+${addIc} FTE → +${addDays}d → +€${Math.round(addDays*dailyRate/1000)}K` : '+0 FTE';
-  document.getElementById('icDisp').textContent = icLabel;
-
-  document.getElementById('mRevCap').textContent = `€${cap.toLocaleString()}K`;
-  document.getElementById('mRevCap').style.color = gapColor;
-  document.getElementById('mGap').textContent    = (gap >= 0 ? '+' : '') + `€${gap.toLocaleString()}K`;
-  document.getElementById('mGap').style.color    = gapColor;
-  document.getElementById('mDays').textContent   = total.toLocaleString() + ' days';
-  document.getElementById('mRate').textContent   = `€${dailyRate}/day`;
-  document.getElementById('mRate').style.color   = dailyRate >= 872 ? '#1D9E75' : '#E24B4A';
-  document.getElementById('mBuffer').textContent = haircut ? `-62 days` : 'Off';
-  document.getElementById('mBuffer').style.color = haircut ? '#BA7517' : '#8b949e';
-
-  document.getElementById('capPct').textContent    = `${pct}%`;
-  document.getElementById('capBarFill').style.width    = `${Math.min(100,pct)}%`;
-  document.getElementById('capBarFill').style.background = gapColor;
-
-  const gb = document.getElementById('gapBadge');
-  gb.textContent = gap >= 0 ? `+€${gap.toLocaleString()}K headroom` : `−€${Math.abs(gap).toLocaleString()}K shortfall`;
-  gb.style.color      = gapColor;
-  gb.style.background = gap >= 0 ? 'rgba(29,158,117,.1)' : 'rgba(226,75,74,.1)';
-  gb.style.borderColor = gapColor + '60';
+function recalc(){
+  dailyRate=parseInt(document.getElementById('rateSlider').value);
+  addIc=parseInt(document.getElementById('icSlider').value);
+  const base=haircut?Math.round(1238*.95):1238;
+  const addD=Math.round(addIc*225*.80);
+  const total=base+addD;
+  const cap=Math.round(total*dailyRate/1000);
+  const gap=cap-1080;
+  const pct=Math.min(150,Math.round(cap/1080*100));
+  const ok=gap>=0;
+  const gc2=ok?'var(--green)':'var(--red)';
+  const pc2=ok?'p-green':'p-red';
+  document.getElementById('rateDisp').textContent=`€${dailyRate}/day`;
+  document.getElementById('rateDisp').style.color=dailyRate>=872?'var(--teal)':'var(--red)';
+  document.getElementById('icDisp').textContent=addIc>0?`+${addIc} FTE → +${addD}d → +€${Math.round(addD*dailyRate/1000)}K`:'+0 FTE';
+  document.getElementById('mRevCap').textContent=`€${cap.toLocaleString()}K`;
+  document.getElementById('mRevCap').style.color=gc2;
+  document.getElementById('mGap').textContent=(gap>=0?'+':'')+`€${gap.toLocaleString()}K`;
+  document.getElementById('mGap').style.color=gc2;
+  document.getElementById('mDays').textContent=`${total.toLocaleString()} days`;
+  document.getElementById('mRate').textContent=`€${dailyRate}/day`;
+  document.getElementById('mRate').style.color=dailyRate>=872?'var(--teal)':'var(--red)';
+  document.getElementById('mBuffer').textContent=haircut?'−62 days':'Off';
+  document.getElementById('mBuffer').style.color=haircut?'var(--amber)':'var(--tm)';
+  document.getElementById('capPct').textContent=`${pct}%`;
+  const pf=document.getElementById('progFill');
+  pf.style.width=`${Math.min(100,pct)}%`;
+  pf.style.background=ok?'var(--green)':'var(--red)';
+  const gb=document.getElementById('gapBadge');
+  gb.className=`pill ${pc2}`;
+  gb.innerHTML=`<span class="pd"></span>${ok?'+€'+gap.toLocaleString()+'K headroom':'−€'+Math.abs(gap).toLocaleString()+'K shortfall'}`;
 }
-
-function toggleHaircut() {
-  haircut = !haircut;
-  const btn = document.getElementById('hcBtn');
-  btn.textContent = haircut ? 'On' : 'Off';
-  btn.className = haircut ? 'toggle-btn on' : 'toggle-btn';
+function toggleHaircut(){
+  haircut=!haircut;
+  const b=document.getElementById('hcBtn');
+  b.textContent=haircut?'On':'Off';
+  b.className=haircut?'tb2 on':'tb2';
   recalc();
 }
-
-// Init if session active
-if (sessionStorage.getItem('ps_unlocked') === '1') {
-  window.addEventListener('load', initCharts);
-}
+if(sessionStorage.getItem('tc_ps')==='1'){window.addEventListener('load',initCharts);}
 </script>
 </body>
 </html>
